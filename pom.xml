@@ -35,6 +35,7 @@
         <mapper.version>2.1.5</mapper.version>
         <tomcat.servlet.version>9.0.14</tomcat.servlet.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <javaee-api.version>7.0</javaee-api.version>
         <!--spring web end-->
 
         <!--db start-->
@@ -53,11 +54,11 @@
         <scope.version>1.0.10</scope.version>
         <joda-time.version>2.10.1</joda-time.version>
         <apache-log4j-extras.version>1.2.17</apache-log4j-extras.version>
+        <jackson.version>2.9.9</jackson.version>
         <!--common end-->
 
         <!--extra start-->
         <!--extra end-->
-
         <!--第三方-->
         <qiniu.version>7.1.1</qiniu.version>
         <xxl-conf.version>1.6.2-SNAPSHOT</xxl-conf.version>
@@ -187,6 +188,11 @@
                 <version>${tomcat.servlet.version}</version>
                 <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${javaee-api.version}</version>
+            </dependency>
             <!--spring web end-->
             <!--db start-->
             <dependency>
@@ -258,6 +264,17 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}.3-kwai</version>
+                <scope>compile</scope>
             </dependency>
             <!--工具类 common end-->
 
