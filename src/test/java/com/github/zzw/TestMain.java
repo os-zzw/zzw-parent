@@ -1,4 +1,4 @@
-package zzw;
+package com.github.zzw;
 
 import java.util.Set;
 

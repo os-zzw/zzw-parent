@@ -1,0 +1,41 @@
+@startuml
+
+Client -> API : 检测到域名被封禁
+
+API ->  ShareDomainService : 封禁域名channel下的domain
+
+ShareDomainService -> ShareDomainUtils : 判断该域名是主域名还是子域名
+
+== 封禁子域名 ==
+ShareDomainService <-- ShareDomainUtils : 是子域名
+ShareDomainService -> ShareDomainCacheHelper : 获取子域名的信息:所属subBiz及channel
+
+ShareDomainService -> ShareDomainCacheHelper : 获取子域名的主域名
+
+ShareDomainService -> ShareDomainCacheHelper : 增加主域名的子域名被封禁数目,超过3个子域名被封禁加入主域名巡检列表
+
+ShareDomainService -> ShareDomainCacheHelper : 对应subBiz及channel下删除该子域名
+
+ShareDomainService -> ShareDomainCacheHelper : 检测对应的主域名还是可用的,增加一个新的子域名
+
+== 封禁主域名 ==
+
+ShareDomainService <-- ShareDomainUtils : 是主域名
+
+
+ShareDomainService -> ShareDomainCacheHelper : 获取该主域名下的subBiz列表
+
+ShareDomainService -> ShareDomainCacheHelper : 删除subBiz-channel 下对应的主域名列表
+
+ShareDomainService -> ShareDomainCacheHelper : 删除该主域名下全部子域名
+ShareDomainService -> ShareDomainCacheHelper : 并将该主域名从check主域名列中移除
+
+ShareDomainService -> API : 返回删除成功
+
+API -> Client : result success
+
+
+
+
+
+@enduml

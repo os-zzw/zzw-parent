@@ -1,0 +1,32 @@
+@startuml
+Client -> API : 为了某个subBiz的channel增加主域名
+
+API -> ShareDomainService : 增加主域名
+
+ShareDomainService -> ShareDomainCacheHelper : 更新subBiz-channel 的主域名列表cache
+
+ShareDomainCacheHelper -> ShareDomainCacheHelper :添加 mainDomain+channel:对应的subBiz
+
+ShareDomainCacheHelper -> ShareDomainUtils : 获取主域名对应的子域名
+
+ShareDomainUtils -> ShareDomainUtils : 根据主域名生成n个子域名
+
+ShareDomainUtils -> ShareDomainCacheHelper : 返回子域名
+
+ShareDomainService -> ShareDomainCacheHelper : 更新subBiz-channel 的子域名列表cache
+
+ShareDomainService -> ShareDomainCacheHelper : 更新mainDomain 对应的子域名列表
+
+ShareDomainService -> ShareDomainCacheHelper : 添加子域名的信息(subBiz+channel)
+
+ShareDomainService -> API : 返回添加成功
+
+Client <- API : result success
+
+
+legend center
+subBiz: 代表某个业务方,比如SF2020_LB:裂变红包, SF2020_R1_A3B3:春晚抢红包业务
+channel: 代表分享的渠道这里是微信和qq
+endlegend
+
+@enduml

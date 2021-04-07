@@ -1,0 +1,15 @@
+@startuml
+
+ShowAnyApi -> KwaiTokenService : 传递shareToken,及session等信息
+
+KwaiTokenService ->  Memcached : 读取shareToken保存信息
+
+Memcached -> KwaiTokenService : 返回口令信息
+
+KwaiTokenService -> KwaiTokenService : 识别webShareToken
+
+KwaiTokenService -> kafka : 发送kafka上报归因信息
+
+ShowAnyApi <- KwaiTokenService : 抛webShareToken异常,客户端不作任何处理
+
+@enduml

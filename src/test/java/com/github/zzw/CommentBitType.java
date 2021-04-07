@@ -1,4 +1,4 @@
-package zzw;
+package com.github.zzw;
 
 /**
  * 添加新的 type 需要更新的服务：commentBitSaveService, commentBitCacheRefresher, comment-bit-cache-refresh7d,

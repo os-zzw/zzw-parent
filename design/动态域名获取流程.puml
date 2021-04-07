@@ -1,0 +1,28 @@
+@startuml
+
+API -> ShareService : 分享卡片
+
+ShareSwitchService <- ShareService : 选择分享方法
+
+ShareSwitchService -> ShareDomainHelper : 获取该业务的域名状态:LESS/MORE/EMPTY
+
+ShareSwitchService <-- ShareDomainHelper : 返回LESS/EMPTY
+
+ShareSwitchService <-- ShareService : 分享方法为口令
+
+API <-- ShareService : 分享口令
+
+ShareSwitchService <- ShareDomainHelper : 返回MORE
+
+ShareSwitchService -> ShareService : 分享方法为卡片
+
+ShareService -> ShareDomainHelper : 获取动态域名
+ShareDomainHelper -> ShareDomainCacheHelper : 通过本地缓存随机获取一个子域名
+
+
+
+ShareDomainHelper -> ShareService : 返回子域名
+ShareService -> API : 返回分享卡片的样式
+
+
+@enduml

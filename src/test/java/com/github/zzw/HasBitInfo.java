@@ -1,4 +1,4 @@
-package zzw;
+package com.github.zzw;
 
 import static java.util.EnumSet.noneOf;
 import static java.util.stream.Collectors.toCollection;

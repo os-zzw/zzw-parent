@@ -1,0 +1,41 @@
+@startuml
+
+ == 分享  ==
+API -> ShareService : 复制链接分享
+ShareService -> ShareUrlService : 根据参数构造长链接
+
+ShareUrlService -> ShortLinkService : 长链接转为短链接
+
+ShortLinkService -> IdSeq : 获取一个shortLinkId
+
+ShortLinkService -> ShortLinkUtils : (shortLinId % 64^6) 先skip 再转base64
+ShortLinkUtils -> ShortLinkService : 返回encode之后的key
+ShortLinkService -> Memcache : 写入cache
+ShortLinkService -> DB : replace into table
+ShortLinkService -> ShareUrlService : 返回key
+ShareUrlService -> ShareDomainHelper : 获取短链相关domain
+ShareDomainHelper -> ShareUrlService : 返回短链domain
+ShareUrlService -> ShareService : 返回超短链
+ShareUrlService -> API : 下发复制文本
+
+== 点击跳转 ==
+
+API -> ShortLinkService : 获取长链接信息
+
+ShortLinkService -> : Memcache : 通过key获取缓存数据
+ShortLinkService -> : Db : 缓存不存在读db
+ShortLinkService -> API : 返回长链接信息
+API -> ShareDomainHelper: 获取跳转域名
+
+API -> API : 拼接跳转链接,并重定向
+
+== 复制回流 ==
+
+API -> ShareService : 获取回流数据
+
+ShareService -> KwaiTokenService : 正则匹配短链key
+KwaiTokenService -> ShortLinkService : 获取长链接数据及对应口令
+ShortLinkService -> KwaiTokenService : 返回口令
+KwaiTokenService -> ShareService : 返回回流数据
+ShareService -> API : 返回回流view
+@enduml

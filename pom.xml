@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>zzw</groupId>
+    <groupId>com.github.os-zzw</groupId>
     <artifactId>zzw-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -43,7 +43,7 @@
         <mysql-binlog-connector-java.version>0.18.1</mysql-binlog-connector-java.version>
         <!--db end-->
 
-        <!--common start-->
+        <!--impl start-->
         <guava.version>23.6-jre</guava.version>
         <commons-collections4.version>4.3</commons-collections4.version>
         <more-lambdas.version>0.1.27</more-lambdas.version>
@@ -55,7 +55,7 @@
         <joda-time.version>2.10.1</joda-time.version>
         <apache-log4j-extras.version>1.2.17</apache-log4j-extras.version>
         <jackson.version>2.9.9</jackson.version>
-        <!--common end-->
+        <!--impl end-->
 
         <!--extra start-->
         <!--extra end-->
@@ -70,6 +70,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.github.os-zzw</groupId>
+            <artifactId>zzw-utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
@@ -78,8 +83,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!--common start-->
+        <!--impl start-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -120,12 +124,12 @@
             <version>${scope.version}</version>
             <scope>compile</scope>
         </dependency>
-        <!--common end-->
+        <!--impl end-->
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
-            <!-- spring common start-->
+            <!-- spring impl start-->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -143,7 +147,7 @@
                 <version>${spring-boot.version}</version>
                 <optional>true</optional>
             </dependency>
-            <!-- spring common end-->
+            <!-- spring impl end-->
             <!--spring web start-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -206,7 +210,7 @@
                 <version>${spring-boot.version}</version>
             </dependency>
             <!--db end-->
-            <!--工具类 common start-->
+            <!--工具类 impl start-->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
@@ -276,7 +280,7 @@
                 <version>${jackson.version}.3-kwai</version>
                 <scope>compile</scope>
             </dependency>
-            <!--工具类 common end-->
+            <!--工具类 impl end-->
 
             <!--http请求 restTemplate start-->
             <dependency>

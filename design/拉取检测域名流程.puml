@@ -1,0 +1,18 @@
+@startuml
+
+Client -> API : 拉取巡检链接
+
+API -> ShareDomainService : 获取需要巡检的域名
+
+ShareDomainService -> ShareDomainCacheHelper : 获取subBiz+channel 下的打开量最少的n个子域名
+
+ShareDomainCacheHelper -> ShareDomainService : 返回需要被检测的子域名
+ShareDomainService -> ShareDomainCacheHelper : 获取subBiz+channel 下的需要检查的主域名,通过cache直接获取
+
+ShareDomainCacheHelper -> ShareDomainService : 返回需要被检测的主域名
+
+ShareDomainService -> API : 返回整合域名和path之后的shareUrl列表
+
+API -> Client : 返回需要检测的shareUrls
+
+@enduml

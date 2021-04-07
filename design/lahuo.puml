@@ -1,0 +1,17 @@
+@startuml
+
+H5Api -> KwaiTokenService : 传递web_did,shareToken等参数
+
+KwaiTokenService -> KwaiTokenService : 通过口令服务解析分享口令获取分享信息
+
+KwaiTokenService -> KwaiTokenService : 将分享信息加上h5 web_did等信息生成新的webShareToken
+
+KwaiTokenService -> Kafka : 异步写入webShareToken
+
+KwaiTokenService -> Memcached : webShareToke数据写入cache
+
+Kafka -> DB : 添加新记录
+
+H5Api <- KwaiTokenService : 返回webShareToken
+
+@enduml

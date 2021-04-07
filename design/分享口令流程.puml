@@ -1,0 +1,38 @@
+@startuml
+
+== 分享 ==
+
+API -> ShareService : 分享某个业务
+
+ShareService -> ShareSwitchService : 返回token的分享方式
+
+ShareService -> KwaiTokenService : 构造shareToken请求参数
+
+KwaiTokenService -> ShareTokenService : 创建shareToken
+ShareTokenService -> Seq : 获取一个shareTokenId
+ShareTokenService -> ShareTokenEncoder : 获取token
+ShareTokenEncoder -> ShareTokenEncoder : encodeVersion + skip(shareTokenId) to 62 + sign(id)=>token
+ShareTokenEncoder -> ShareTokenService : 返回shareToken
+ShareTokenService -> ShareTokenCacheHelper : 写入cache
+ShareTokenService -> ShareTokenService : 发送kafka  异步写db
+ShareTokenService -> ShareTokenPostfixHelper : 获取对应业务方口令后缀
+ShareTokenService -> KwaiTokenService : 返回shareToken+后缀
+KwaiTokenService -> ShareTokenService : 返回口令
+ShareTokenService -> API : 整合分享view返回数据
+
+==回流 ==
+
+API -> ShareService : 复制口令/短链到客户端 匹配正则/后缀 请求回流
+ShareService -> KwaiTokenService : 正则匹配/调用短链服务 获取 真实shareToken+后缀
+KwaiTokenService -> ShareTokenService : 获取shareToken数据
+ShareTokenService -> ShareTokenPostfixHelper :  去除后缀,获取token
+ShareTokenService -> ShareTokenCacheHelper : 读取cache
+ShareTokenService -> ShareTokenDAO : 如果cache中没有的话,就读db
+ShareTokenService -> KwaiTokenService : 返回shareToken数据
+KwaiTokenService -> ShareTokenService : 返回shareToken数据
+ShareTokenService -> API : 整合返回回流view数据
+legend center
+ShareTokenService : share-token 工程的类
+ShareToken后缀 : 是为了标识不同的业务方 _A
+endlegend
+@enduml
