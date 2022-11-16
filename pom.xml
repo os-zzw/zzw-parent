@@ -54,7 +54,7 @@
         <scope.version>1.0.10</scope.version>
         <joda-time.version>2.10.1</joda-time.version>
         <apache-log4j-extras.version>1.2.17</apache-log4j-extras.version>
-        <jackson.version>2.9.9</jackson.version>
+        <jackson.version>2.12.7.1</jackson.version>
         <!--impl end-->
 
         <!--extra start-->
@@ -277,7 +277,7 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}.3-kwai</version>
+                <version>${jackson.version}</version>
                 <scope>compile</scope>
             </dependency>
             <!--工具类 impl end-->
